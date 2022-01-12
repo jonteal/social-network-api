@@ -35,6 +35,10 @@ const userSchema = new Schema(
         // },
         // id: false
         // DOUBLE CHECK THIS PART AND REFERENCE THE SCHEMA SETTINGS IN README
-        
+
     }
-)
+);
+
+const User = model('user', userSchema);
+
+module.exports = User;
