@@ -1,5 +1,9 @@
 const { Schema, model } = require('mongoose');
-// const 
+
+const validateEmail = function(email) {
+    const validEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    return validEmail.test(email);
+}
 
 // Schema to create a User model
 const userSchema = new Schema(
@@ -14,7 +18,7 @@ const userSchema = new Schema(
             type: String,
             required: true,
             unique: true,
-            // validate: find out how to validate email
+            validate: [validateEmail, 'enter a valid email address'],
         },
         thoughts: [
             {
@@ -30,15 +34,18 @@ const userSchema = new Schema(
         ],
     },
     {
-        // toJSON: {
-        //     virtuals: true,
-        // },
-        // id: false
-        // DOUBLE CHECK THIS PART AND REFERENCE THE SCHEMA SETTINGS IN README
-
+        toJSON: {
+            virtuals: true,
+            getters: true,
+        },
+        id: false
     }
 );
 
-const User = model('user', userSchema);
+userSchema.virtual('friendCount').get(function() {
+    return this.friends.length;
+});
+
+const User = model('User', userSchema);
 
 module.exports = User;
