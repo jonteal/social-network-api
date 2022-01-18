@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Thought } = require('../models');
 
 module.exports = {
     getUsers(req, res) {
@@ -15,7 +15,23 @@ module.exports = {
     },
 
     getSingleUser(req, res) {
+        User.findOne({ _id: req.params.userId })
+            .populate({ path: 'thoughts', select: '-__v' })
 
+            .populate({ path: 'friends', select: '-__v' })
+
+            .select('-__v')
+            .then(async (user) => 
+                !user  
+                    ? res.status(404).json({ message: 'No user with that ID!' })
+                    : res.json({
+                        user,
+                    })
+            )
+            .catch((err) => {
+                console.log(err);
+                return res.status(500).json(err);
+            });
     }, 
 
     createUser(req,res) {
