@@ -14,21 +14,23 @@ const {
 router
 .route('/')
 .get(getThoughts)
-// .post(createThought);
+.post(createThought);
 
 // /api/thoughts/:thoughtId
 router
 .route('/:thoughtId')
 .get(getSingleThought)
-// .put(updateThought)
-// .delete(deleteThought);
+.put(updateThought)
+.delete(deleteThought);
 
 
 //  /api/users/:thoughtId/thoughts
 router
 .route('/:thoughtId/reactions')
-// .post(addReaction);
+.post(addReaction);
 
 router
 .route('/:thoughtId/reactions/:reactionId')
-// .delete(deleteReaction);
+.delete(deleteReaction);
+
+module.exports = router;
