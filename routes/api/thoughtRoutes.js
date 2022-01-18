@@ -19,7 +19,7 @@ router
 // /api/thoughts/:thoughtId
 router
 .route('/:thoughtId')
-// .get(getSingleThought)
+.get(getSingleThought)
 // .put(updateThought)
 // .delete(deleteThought);
 
