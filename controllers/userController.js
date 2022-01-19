@@ -16,6 +16,7 @@ module.exports = {
     },
 
     getSingleUser(req, res) {
+        console.log("hello world");
         User.findOne({ _id: req.params.userId })
             .populate({ path: 'thoughts', select: '-__v' })
 

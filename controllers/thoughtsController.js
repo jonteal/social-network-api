@@ -26,10 +26,13 @@ module.exports = {
 
     // // create a thought
     createThought(req, res) {
+        console.log(req.body);
+
         Thought.create(req.body)
             .then((thought) => {
                 return User.findByIdAndUpdate(
                     { _id: req.body.userId },
+
                     { $push: { thoughts: thought._id.toString() }},
                     { new: true }
                 ).then((updatedUser) => {
