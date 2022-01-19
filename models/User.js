@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 
+// Regex to validate emails
 const validateEmail = function(email) {
     const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return re.test(email)
@@ -42,6 +43,7 @@ const userSchema = new Schema(
     }
 );
 
+// Virtual that returns the length of the friend count
 userSchema.virtual('friendCount').get(function() {
     return this.friends.length;
 });

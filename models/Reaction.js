@@ -1,6 +1,7 @@
 const  { Schema, Types } = require('mongoose');
 const moment = require('moment');
 
+// Reaction Schema 
 const reactionSchema = new Schema(
     {
         reactionId: {

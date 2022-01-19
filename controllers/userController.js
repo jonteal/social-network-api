@@ -1,7 +1,10 @@
+// Requiring the User and Thought models
 const { User, Thought } = require('../models');
 const thoughtsController = require('./thoughtsController');
 
 module.exports = {
+
+    // Get all users
     getUsers(req, res) {
         User.find({})
         .populate('thoughts')
@@ -15,6 +18,7 @@ module.exports = {
         });
     },
 
+    // Get a single user with ID
     getSingleUser(req, res) {
         console.log("hello world");
         User.findOne({ _id: req.params.userId })
@@ -36,12 +40,14 @@ module.exports = {
             });
     }, 
 
+    // Create User
     createUser(req,res) {
         User.create(req.body) 
         .then((user) => res.json(user))
         .catch((err) => res.status(500).json(err));
     },
 
+    // Update user using user Id
     updateUser(req,res) {
         User.findByIdAndUpdate(
             { _id: req.params.userId },
@@ -56,6 +62,7 @@ module.exports = {
         .catch((err) => res.status(500).json(err));
     },
 
+    // Delete User with userID
     deleteUser(req, res) {
         User.findByIdAndDelete({ _id: req.params.userId })
             .then((user) =>
@@ -77,6 +84,7 @@ module.exports = {
         })
     },
 
+    // Add Friend using your userId and theirs
     addFriend(req,res) {
         console.log('You have added a new friend!');
         User.findOneAndUpdate(
@@ -92,6 +100,7 @@ module.exports = {
                 .catch((err) => res.status(500).json(err));
     },
 
+    // Remove friend using your userId and theirs
     removeFriend(req,res) {
         User.findOneAndUpdate(
             { _id: req.params.userId },
